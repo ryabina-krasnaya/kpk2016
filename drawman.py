@@ -30,8 +30,8 @@ def on_vector(dx,dy):
 
 def to_point(x,y):
     global x_current, y_current
-    x_current = dx
-    y_current = dy
+    x_current = x
+    y_current = y
     t.goto(x,y)
 
 init_drawman()
