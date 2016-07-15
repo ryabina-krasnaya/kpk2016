@@ -1,42 +1,26 @@
 import tkinter
 
+def click_ball(event):
+    """По клику мышкой на объекте - он исчезает"""
+   pass
 
-def button1_command():
-    print('Button 1 default command')
+def create_random_ball():
+    """Создает шарик в случайном месте игрового холста не переходя за его границы"""
+    canvas.create_oval(x,y,x+2*R,y+2*R, width=2, fill = random_color())
 
-def print_hello(event):
-    me = event.widget
-    if me == button1:
-        print('Hello!')
-    elif me == button2:
-        print('Вы нажали кнопку 2!')
-    else:
-        raise ValueError()
+def init_ball_catch_game():
+    """Создает необходимое для игры количество шариков, по которым нужно кликать"""
 
 def init_main_window():
-    global root, button1, button2, label, text, scale
+    global root,canvas
 
     root = tkinter.Tk()
 
-    button1 = tkinter.Button(root, text = "Button 1", command = button1_command)
-    button1.bind("<Button>",print_hello)
+    canvas = tkinter.Canvas(root, background = 'green', width = 600, height = 400)
+    canvas.bind("<Motion>", paint)
+    canvas.pack()
 
-    button2 = tkinter.Button(root, text = "Button 2")
-    button2.bind("<Button>",print_hello)
+    for i in range (10):
+        canvas.create_oval(2+i*40,2+i*40,i*40+30,i*40+30, width=2, fill = 'red')
 
-    variable = tkinter.IntVar(0)
-
-    label = tkinter.Label(root, text = variable, textvariable=variable)
-
-    scale = tkinter.Scale(root, orient=tkinter.HORIZONTAL, length=300, from_ =0,to =100, tickinterval=10,
-                          resolution=5,variable=variable)
-
-    text = tkinter.Entry(root, textvariable=variable)
-
-    for obj in button1, button2, label, scale, text:
-        obj.pack()
-
-if __name__ == "__main__":
-    init_main_window()
-
-    root.mainloop()
+root.mainloop()
